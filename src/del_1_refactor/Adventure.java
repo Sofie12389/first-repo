@@ -15,6 +15,7 @@ public class Adventure {
     }
 
     public String look() {
-        return player.getCurrentRoom().getDescription();
+        return "You are in " + player.getCurrentRoom().getName()
+                + "\n" + player.getCurrentRoom().getDescription();
     }
 }
