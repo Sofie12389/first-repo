@@ -1,5 +1,7 @@
 package del_1_refactor;
 
+import java.util.ArrayList;
+
 public class Room {
     private String name;
     private String description;
@@ -8,9 +10,13 @@ public class Room {
     private Room east;
     private Room west;
 
+    private ArrayList<Item> items;
+
+
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
+        items = new ArrayList<>();
     }
 
     public String getName() {
@@ -19,6 +25,27 @@ public class Room {
 
     public String getDescription() {
         return description;
+    }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public void removeItem(Item item) {
+        items.remove(item);
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public Item findItem(String shortName) {
+        for (Item item : items) {
+            if (item.getShortName().equalsIgnoreCase(shortName)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     public Room getNorth() {
