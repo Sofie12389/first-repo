@@ -23,7 +23,10 @@ public class UserInterface {
     private boolean handleInput(String input) {
         if (input.startsWith("go ")) {
             go(input.substring(3).trim());
+        } else if (input.startsWith("take ")) {
+            take(input.substring(5).trim());
         } else {
+
             switch (input) {
                 case "look" -> System.out.println(adventure.look());
                 case "help" -> printHelp();
@@ -47,6 +50,16 @@ public class UserInterface {
             System.out.println(adventure.look());
         } else {
             System.out.println("You can't go that way.");
+        }
+    }
+
+    private void take(String name) {
+        Item item = adventure.take(name);
+
+        if (item != null) {
+            System.out.println("You have taken " + item.getLongName());
+        } else {
+            System.out.println("There is nothing like " + name + " to take around here");
         }
     }
 
