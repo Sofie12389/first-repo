@@ -25,10 +25,13 @@ public class UserInterface {
             go(input.substring(3).trim());
         } else if (input.startsWith("take ")) {
             take(input.substring(5).trim());
+        } else if (input.startsWith("drop ")) {
+            drop(input.substring(5).trim());
         } else {
 
             switch (input) {
                 case "look" -> System.out.println(adventure.look());
+                case "inventory", "inv", "invent" -> showInventory();
                 case "help" -> printHelp();
                 case "quit" -> {
                     System.out.println("Goodbye!");
@@ -63,6 +66,24 @@ public class UserInterface {
         }
     }
 
+    private void drop(String name) {
+        Item item = adventure.drop(name);
+
+        if (item != null) {
+            System.out.println("You have dropped " + item.getLongName());
+        } else {
+            System.out.println("You don't have anything like " + name + " in your inventory");
+        }
+    }
+
+    private void showInventory() {
+        System.out.println("You are carrying:");
+
+        for (Item item : adventure.getInventory()) {
+            System.out.println(item.getLongName());
+        }
+    }
+
     private String translateDirection(String input) {
         return switch (input) {
             case "n", "north" -> "north";
@@ -79,5 +100,8 @@ public class UserInterface {
         System.out.println("  look - describe the current room");
         System.out.println("  help - show this help");
         System.out.println("  quit - end the game");
+        System.out.println("  take <item> - pick up an item");
+        System.out.println("  drop <item> - drop an item");
+        System.out.println("  inventory (or inv/invent) - show your inventory");
     }
 }

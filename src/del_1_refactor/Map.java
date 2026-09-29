@@ -56,7 +56,7 @@ public class Map {  public Room buildMap() {
     room6.addItem(new Item("bottle", "a mysterious glass bottle"));
     room7.addItem(new Item("ring", "a small golden ring"));
     room8.addItem(new Item("map", "an old treasure map"));
-    room9.addItem(new Item("chest", "a heavy wooden chest"));
+    room9.addItem(new Item("shoe", "a heavy shoe"));
 
     // Room 1 <-> Room 2
     room1.setEast(room2);
