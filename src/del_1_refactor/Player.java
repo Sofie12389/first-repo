@@ -53,6 +53,26 @@ public class Player {
 
         return item;
     }
+    public EatOutcome eat(String itemName) {
+
+        Item item = findItem(itemName);
+
+        if (item == null) {
+            return new EatOutcome(EatResult.NOT_FOUND, itemName, 0);
+        }
+
+        if (!(item instanceof Food)) {
+            return new EatOutcome(EatResult.NOT_FOOD, itemName, 0);
+        }
+
+        Food food = (Food) item;
+        int healthChange = food.getHealthPoints();
+
+        changeHealth(healthChange);
+        removeItem(food);
+
+        return new EatOutcome(EatResult.EATEN, itemName, healthChange);
+    }
 
     public ArrayList<Item> getInventory() {
         return inventory;

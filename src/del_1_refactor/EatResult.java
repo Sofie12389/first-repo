@@ -1,4 +1,8 @@
 package del_1_refactor;
 
-public class EatResult {
-}
+    public enum EatResult {
+        NOT_FOUND,
+        NOT_FOOD,
+        EATEN
+    }
+

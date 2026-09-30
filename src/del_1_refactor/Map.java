@@ -58,6 +58,12 @@ public class Map {  public Room buildMap() {
     room8.addItem(new Item("map", "an old treasure map"));
     room9.addItem(new Item("shoe", "a heavy shoe"));
 
+    Food bread = new Food (
+            "bread", "a freshly baked bread",
+            10
+            );
+    room1.addItem(bread);
+
     // Room 1 <-> Room 2
     room1.setEast(room2);
     room2.setWest(room1);
