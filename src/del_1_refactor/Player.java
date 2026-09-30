@@ -7,6 +7,13 @@ public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory = new ArrayList<>();
 
+    private int PlayerHealth = 100;
+    public int getPlayerHealth(){
+        return PlayerHealth;
+    }
+    public void changeHealth(int amount) {
+        PlayerHealth += amount;
+    }
     public void addItem(Item item) {
         inventory.add(item);
     }
