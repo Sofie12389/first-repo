@@ -27,11 +27,14 @@ public class UserInterface {
             take(input.substring(5).trim());
         } else if (input.startsWith("drop ")) {
             drop(input.substring(5).trim());
+        } else if (input.startsWith("eat ")) {
+            eat(input.substring(4).trim());
         } else {
 
             switch (input) {
                 case "look" -> System.out.println(adventure.look());
                 case "inventory", "inv", "invent" -> showInventory();
+                case "health" -> showHealth();
                 case "help" -> printHelp();
                 case "quit" -> {
                     System.out.println("Goodbye!");
@@ -75,12 +78,42 @@ public class UserInterface {
             System.out.println("You don't have anything like " + name + " in your inventory");
         }
     }
+    private void eat(String name) {
+        EatOutcome outcome = adventure.eat(name);
+
+        switch (outcome.getResult()) {
+            case NOT_FOUND ->
+                    System.out.println("You don't have anything like " + name + " in your inventory");
+
+            case NOT_FOOD ->
+                    System.out.println("You can't eat " + outcome.getItemName());
+
+            case EATEN ->
+                    System.out.println("You ate " + outcome.getItemName() +
+                            " and your health changed by " + outcome.getHealthChange());
+        }
+    }
 
     private void showInventory() {
         System.out.println("You are carrying:");
 
         for (Item item : adventure.getInventory()) {
             System.out.println(item.getLongName());
+        }
+    }
+    private void showHealth() {
+        int health = adventure.getPlayerHealth();
+
+        if (health >= 100) {
+            System.out.println("health: " + health + " - you are in perfect health");
+        } else if (health >= 50) {
+            System.out.println("health: " + health + " - you are in good health, but avoid fighting right now");
+        } else if (health >= 25) {
+            System.out.println("health: " + health + " - you are wounded - find something healthy to eat");
+        } else if (health >= 1) {
+            System.out.println("health: " + health + " - you are barely alive");
+        } else {
+            System.out.println("health: " + health + " - you should be dead");
         }
     }
 
@@ -103,5 +136,7 @@ public class UserInterface {
         System.out.println("  take <item> - pick up an item");
         System.out.println("  drop <item> - drop an item");
         System.out.println("  inventory (or inv/invent) - show your inventory");
+        System.out.println("  health - show your current health");
+        System.out.println("  eat <food> - eat something");
     }
 }

@@ -56,28 +56,40 @@ public class Player {
     public EatOutcome eat(String itemName) {
 
         Item item = findItem(itemName);
+        boolean fromInventory = true;
 
         if (item == null) {
-            return new EatOutcome(EatResult.NOT_FOUND, itemName, 0);
+            item = currentRoom.findItem(itemName);
+            fromInventory = false;
         }
 
+        if (item == null) {
+            return new EatOutcome(EatResult.NOT_FOUND, null, 0);
+        }
+
+        String longName = item.getLongName();
+
         if (!(item instanceof Food)) {
-            return new EatOutcome(EatResult.NOT_FOOD, itemName, 0);
+            return new EatOutcome(EatResult.NOT_FOOD, longName, 0);
         }
 
         Food food = (Food) item;
         int healthChange = food.getHealthPoints();
 
         changeHealth(healthChange);
-        removeItem(food);
 
-        return new EatOutcome(EatResult.EATEN, itemName, healthChange);
+        if (fromInventory) {
+            inventory.remove(food);
+        } else {
+            currentRoom.removeItem(food);
+        }
+
+        return new EatOutcome(EatResult.EATEN, longName, healthChange);
     }
 
     public ArrayList<Item> getInventory() {
         return inventory;
     }
-
 
     public Player(Room startRoom) {
         currentRoom = startRoom;

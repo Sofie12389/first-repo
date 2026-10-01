@@ -22,6 +22,12 @@ public class Adventure {
     public Item drop(String name) {
         return player.dropItem(name);
     }
+    public EatOutcome eat(String name) {
+        return player.eat(name);
+    }
+    public int getPlayerHealth() {
+        return player.getPlayerHealth();
+    }
 
     public ArrayList<Item> getInventory() {
         return player.getInventory();

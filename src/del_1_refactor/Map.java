@@ -64,6 +64,13 @@ public class Map {  public Room buildMap() {
             );
     room1.addItem(bread);
 
+    Food mushroom = new Food(
+            "mushroom",
+            "a pale glowing mushroom",
+            -50
+    );
+    room2.addItem(mushroom);
+
     // Room 1 <-> Room 2
     room1.setEast(room2);
     room2.setWest(room1);
