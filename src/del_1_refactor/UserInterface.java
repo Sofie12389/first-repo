@@ -135,6 +135,12 @@ public class UserInterface {
         for (Item item : adventure.getInventory()) {
             System.out.println(item.getLongName());
         }
+
+        Weapon equipped = adventure.getEquipped();
+
+        if (equipped != null) {
+            System.out.println("Equipped: " + equipped.getLongName());
+        }
     }
     private void showHealth() {
         int health = adventure.getPlayerHealth();
@@ -173,5 +179,7 @@ public class UserInterface {
         System.out.println("  inventory (or inv/invent) - show your inventory");
         System.out.println("  health - show your current health");
         System.out.println("  eat <food> - eat something");
+        System.out.println("  equip <weapon> - equip a weapon");
+        System.out.println("  attack - attack with your equipped weapon");
     }
 }
