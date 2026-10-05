@@ -29,12 +29,15 @@ public class UserInterface {
             drop(input.substring(5).trim());
         } else if (input.startsWith("eat ")) {
             eat(input.substring(4).trim());
+        } else if (input.startsWith("equip ")) {
+            equip(input.substring(6).trim());
         } else {
 
             switch (input) {
                 case "look" -> System.out.println(adventure.look());
                 case "inventory", "inv", "invent" -> showInventory();
                 case "health" -> showHealth();
+                case "attack" -> attack();
                 case "help" -> printHelp();
                 case "quit" -> {
                     System.out.println("Goodbye!");
@@ -93,7 +96,39 @@ public class UserInterface {
                             " and your health changed by " + outcome.getHealthChange());
         }
     }
+    private void equip(String name) {
+        EquipResult result = adventure.equip(name);
 
+        switch (result) {
+            case EQUIPPED ->
+                    System.out.println("You have equipped " + adventure.getEquipped().getLongName());
+
+            case NOT_FOUND ->
+                    System.out.println("You don't have anything like " + name + " in your inventory");
+
+            case NOT_WEAPON ->
+                    System.out.println(name + " is not a weapon");
+        }
+    }
+    private void attack() {
+        AttackResult result = adventure.attack();
+
+        switch (result) {
+            case NO_WEAPON ->
+                    System.out.println("You don't have a weapon equipped.");
+
+            case EMPTY ->
+                    System.out.println("Your weapon is empty.");
+
+            case ATTACKED -> {
+                Weapon weapon = adventure.getEquipped();
+
+                System.out.println("You " + weapon.getAttackVerb()
+                        + " " + weapon.getLongName() + " at the empty air. "
+                        + weapon.getUsesLeftText());
+            }
+        }
+    }
     private void showInventory() {
         System.out.println("You are carrying:");
 

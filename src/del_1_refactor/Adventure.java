@@ -15,6 +15,7 @@ public class Adventure {
     public boolean go(String direction) {
         return player.move(direction);
     }
+
     public Item take(String name) {
         return player.takeItem(name);
     }
@@ -22,8 +23,18 @@ public class Adventure {
     public Item drop(String name) {
         return player.dropItem(name);
     }
+
     public EatOutcome eat(String name) {
         return player.eat(name);
+    }
+    public EquipResult equip(String name) {
+        return player.equip(name);
+    }
+    public AttackResult attack() {
+        return player.attack();
+    }
+    public Weapon getEquipped() {
+        return player.getEquipped();
     }
     public int getPlayerHealth() {
         return player.getPlayerHealth();
@@ -44,5 +55,5 @@ public class Adventure {
         return result;
     }
 
-    }
+}
 

@@ -7,6 +7,8 @@ public class Player {
     private Room currentRoom;
     private ArrayList<Item> inventory = new ArrayList<>();
 
+    private Weapon equipped;
+
     private int PlayerHealth = 100;
     public int getPlayerHealth(){
         return PlayerHealth;
@@ -49,6 +51,9 @@ public class Player {
         if (item != null) {
             inventory.remove(item);
             currentRoom.addItem(item);
+            if (item == equipped) {
+                equipped = null;
+            }
         }
 
         return item;
@@ -89,6 +94,37 @@ public class Player {
 
     public ArrayList<Item> getInventory() {
         return inventory;
+    }
+
+    public Weapon getEquipped() {
+        return equipped;
+    }
+    public EquipResult equip(String weaponName) {
+        Item item = findItem(weaponName);
+
+        if (item == null) {
+            return EquipResult.NOT_FOUND;
+        }
+
+        if (!(item instanceof Weapon)) {
+            return EquipResult.NOT_WEAPON;
+        }
+
+        equipped = (Weapon) item;
+        return EquipResult.EQUIPPED;
+    }
+    public AttackResult attack() {
+        if (equipped == null) {
+            return AttackResult.NO_WEAPON;
+        }
+
+        if (!equipped.canUse()) {
+            return AttackResult.EMPTY;
+        }
+
+        equipped.use();
+
+        return AttackResult.ATTACKED;
     }
 
     public Player(Room startRoom) {

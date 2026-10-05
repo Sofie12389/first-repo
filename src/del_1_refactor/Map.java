@@ -70,6 +70,21 @@ public class Map {  public Room buildMap() {
             -50
     );
     room2.addItem(mushroom);
+    MeleeWeapon sword = new MeleeWeapon(
+            "sword",
+            "a rusty sword",
+            20
+    );
+
+    RangedWeapon revolver = new RangedWeapon(
+            "revolver",
+            "an old revolver",
+            10,
+            6
+    );
+
+    room3.addItem(sword);
+    room3.addItem(revolver);
 
     // Room 1 <-> Room 2
     room1.setEast(room2);
