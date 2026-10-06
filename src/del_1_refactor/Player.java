@@ -121,11 +121,6 @@ public class Player {
     }
     public AttackResult attack(String enemyName) {
 
-        Enemy enemy = currentRoom.findEnemy(enemyName);
-
-        if (enemy == null) {
-            return AttackResult.NO_ENEMY;
-        }
 
         if (equipped == null) {
             return AttackResult.NO_WEAPON;
