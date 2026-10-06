@@ -12,11 +12,12 @@ public class Room {
 
     private ArrayList<Item> items;
 
-
+    private ArrayList<Enemy> enemies;
     public Room(String name, String description) {
         this.name = name;
         this.description = description;
         items = new ArrayList<>();
+        enemies = new ArrayList<>();
     }
 
     public String getName() {
@@ -38,8 +39,26 @@ public class Room {
     public ArrayList<Item> getItems() {
         return items;
     }
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+    }
 
-    public Item findItem(String shortName) {
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+    public Enemy findEnemy(String shortName) {
+        for (Enemy enemy : enemies) {
+            if (enemy.getShortName().equalsIgnoreCase(shortName)) {
+                return enemy;
+            }
+        }
+        return null;
+
+        public Item findItem(String shortName) {
         for (Item item : items) {
             if (item.getShortName().equalsIgnoreCase(shortName)) {
                 return item;
