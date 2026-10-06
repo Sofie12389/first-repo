@@ -16,6 +16,12 @@ public class Player {
     public void changeHealth(int amount) {
         PlayerHealth += amount;
     }
+    public void hit(int damage) {
+        PlayerHealth -= damage;
+    }
+    public boolean isDead() {
+        return PlayerHealth <= 0;
+    }
     public void addItem(Item item) {
         inventory.add(item);
     }
@@ -114,6 +120,12 @@ public class Player {
         return EquipResult.EQUIPPED;
     }
     public AttackResult attack(String enemyName) {
+
+        Enemy enemy = currentRoom.findEnemy(enemyName);
+
+        if (enemy == null) {
+            return AttackResult.NO_ENEMY;
+        }
 
         if (equipped == null) {
             return AttackResult.NO_WEAPON;
