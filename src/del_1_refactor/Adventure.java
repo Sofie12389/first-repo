@@ -30,8 +30,8 @@ public class Adventure {
     public EquipResult equip(String name) {
         return player.equip(name);
     }
-    public AttackResult attack() {
-        return player.attack();
+    public AttackResult attack(String enemyName) {
+        return player.attack(enemyName);
     }
     public Weapon getEquipped() {
         return player.getEquipped();
@@ -52,6 +52,10 @@ public class Adventure {
             result += "\nHere you see: " + item.getLongName();
         }
 
+        for (Enemy enemy : player.getCurrentRoom().getEnemies()) {
+            result += "\nEnemy: " + enemy.getLongName()
+                    + " - " + enemy.getDescription();
+        }
         return result;
     }
 

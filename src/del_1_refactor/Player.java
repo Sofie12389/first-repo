@@ -113,7 +113,8 @@ public class Player {
         equipped = (Weapon) item;
         return EquipResult.EQUIPPED;
     }
-    public AttackResult attack() {
+    public AttackResult attack(String enemyName) {
+
         if (equipped == null) {
             return AttackResult.NO_WEAPON;
         }
@@ -122,7 +123,32 @@ public class Player {
             return AttackResult.EMPTY;
         }
 
+        Enemy enemy;
+
+        if (enemyName == null || enemyName.isEmpty()) {
+            if (currentRoom.getEnemies().isEmpty()) {
+                equipped.use();
+                return AttackResult.NO_ENEMY;
+            }
+
+            enemy = currentRoom.getEnemies().get(0);
+        } else {
+            enemy = currentRoom.findEnemy(enemyName);
+
+            if (enemy == null) {
+                return AttackResult.ENEMY_NOT_FOUND;
+            }
+        }
+
         equipped.use();
+        enemy.hit(equipped);
+
+        if (enemy.isDead()) {
+            return AttackResult.KILLED;
+        }
+
+        int enemyDamage = enemy.attack();
+        changeHealth(-enemyDamage);
 
         return AttackResult.ATTACKED;
     }

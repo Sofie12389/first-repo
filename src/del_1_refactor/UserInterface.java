@@ -31,13 +31,15 @@ public class UserInterface {
             eat(input.substring(4).trim());
         } else if (input.startsWith("equip ")) {
             equip(input.substring(6).trim());
+        } else if (input.startsWith("attack ")) {
+            attack(input.substring(7).trim());
         } else {
 
             switch (input) {
                 case "look" -> System.out.println(adventure.look());
                 case "inventory", "inv", "invent" -> showInventory();
                 case "health" -> showHealth();
-                case "attack" -> attack();
+                case "attack" -> attack("");
                 case "help" -> printHelp();
                 case "quit" -> {
                     System.out.println("Goodbye!");
@@ -110,8 +112,8 @@ public class UserInterface {
                     System.out.println(name + " is not a weapon");
         }
     }
-    private void attack() {
-        AttackResult result = adventure.attack();
+    private void attack(String enemyName) {
+        AttackResult result = adventure.attack(enemyName);
 
         switch (result) {
             case NO_WEAPON ->
@@ -119,6 +121,15 @@ public class UserInterface {
 
             case EMPTY ->
                     System.out.println("Your weapon is empty.");
+
+            case NO_ENEMY ->
+                    System.out.println("There are no enemies here.");
+
+            case ENEMY_NOT_FOUND ->
+                    System.out.println("There is no enemy called " + enemyName + " here.");
+
+            case KILLED ->
+                    System.out.println("You killed the enemy.");
 
             case ATTACKED -> {
                 Weapon weapon = adventure.getEquipped();
