@@ -10,6 +10,12 @@ public class Player {
     private Weapon equipped;
 
     private int PlayerHealth = 100;
+
+    private int lastEnemyDamage = 0;
+
+    public int getLastEnemyDamage() {
+        return lastEnemyDamage;
+    }
     public int getPlayerHealth(){
         return PlayerHealth;
     }
@@ -154,8 +160,8 @@ public class Player {
             return AttackResult.KILLED;
         }
 
-        int enemyDamage = enemy.attack();
-        changeHealth(-enemyDamage);
+        lastEnemyDamage = enemy.attack();
+        changeHealth(-lastEnemyDamage);
 
         return AttackResult.ATTACKED;
     }

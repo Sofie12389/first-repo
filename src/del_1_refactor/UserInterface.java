@@ -49,6 +49,11 @@ public class UserInterface {
                 default -> System.out.println("Unknown command. Type 'help' for commands.");
             }
         }
+        if (adventure.isPlayerDead()) {
+            System.out.println("Game Over! You died.");
+            return false;
+        }
+
         return true;
     }
 
@@ -122,21 +127,35 @@ public class UserInterface {
             case EMPTY ->
                     System.out.println("Your weapon is empty.");
 
-            case NO_ENEMY ->
-                    System.out.println("There are no enemies here.");
+            case NO_ENEMY -> {
+                Weapon weapon = adventure.getEquipped();
+
+                System.out.println("You " + weapon.getAttackVerb()
+                        + " " + weapon.getLongName()
+                        + " at the empty air. "
+                        + weapon.getUsesLeftText());
+            }
 
             case ENEMY_NOT_FOUND ->
                     System.out.println("There is no enemy called " + enemyName + " here.");
 
-            case KILLED ->
-                    System.out.println("You killed the enemy.");
+            case KILLED -> {
+                Weapon weapon = adventure.getEquipped();
+                System.out.println("You dealt " + weapon.getDamage() + " damage.");
+                System.out.println("You killed the enemy. " + weapon.getUsesLeftText());
+            }
 
             case ATTACKED -> {
                 Weapon weapon = adventure.getEquipped();
 
                 System.out.println("You " + weapon.getAttackVerb()
-                        + " " + weapon.getLongName() + " at the empty air. "
+                        + " " + weapon.getLongName()
+                        + " and hit the enemy. "
                         + weapon.getUsesLeftText());
+                System.out.println("You dealt " + adventure.getEquipped().getDamage() + " damage to the enemy.");
+                System.out.println("The enemy attacks you for " + adventure.getLastEnemyDamage() + " damage!");
+                System.out.println("Your health is now " + adventure.getPlayerHealth());
+
             }
         }
     }
@@ -192,5 +211,6 @@ public class UserInterface {
         System.out.println("  eat <food> - eat something");
         System.out.println("  equip <weapon> - equip a weapon");
         System.out.println("  attack - attack with your equipped weapon");
+        System.out.println("  attack <enemy> - attack a specific enemy");
     }
 }

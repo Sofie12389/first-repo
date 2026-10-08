@@ -40,6 +40,14 @@ public class Adventure {
         return player.getPlayerHealth();
     }
 
+    public int getLastEnemyDamage() {
+        return player.getLastEnemyDamage();
+    }
+
+    public boolean isPlayerDead() {
+        return player.isDead();
+    }
+
     public ArrayList<Item> getInventory() {
         return player.getInventory();
     }

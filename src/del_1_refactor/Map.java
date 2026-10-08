@@ -79,7 +79,7 @@ public class Map {  public Room buildMap() {
     RangedWeapon revolver = new RangedWeapon(
             "revolver",
             "an old revolver",
-            10,
+            25,
             6
     );
 
@@ -91,11 +91,33 @@ public class Map {  public Room buildMap() {
             "a large cave troll",
             "A huge troll is guarding the room.",
             40,
-            new MeleeWeapon("club", "a heavy wooden club", 10),
+            new MeleeWeapon("club", "a heavy wooden club", 20),
             room6
     );
 
     room6.addEnemy(troll);
+
+    Enemy skeleton = new Enemy(
+            "skeleton",
+            "a scary skeleton",
+            "A skeleton is standing in the corner.",
+            30,
+            new MeleeWeapon("dagger", "a sharp dagger", 5),
+            room4
+    );
+
+    room4.addEnemy(skeleton);
+
+    Enemy zombie = new Enemy(
+            "zombie",
+            "a terrifying zombie",
+            "A rotten zombie is wandering around the room.",
+            50,
+            new MeleeWeapon("axe", "a bloody axe", 15),
+            room8
+    );
+
+    room8.addEnemy(zombie);
 
     // Room 1 <-> Room 2
     room1.setEast(room2);
