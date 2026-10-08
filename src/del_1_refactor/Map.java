@@ -86,6 +86,17 @@ public class Map {  public Room buildMap() {
     room3.addItem(sword);
     room3.addItem(revolver);
 
+    Enemy troll = new Enemy(
+            "troll",
+            "a large cave troll",
+            "A huge troll is guarding the room.",
+            40,
+            new MeleeWeapon("club", "a heavy wooden club", 10),
+            room6
+    );
+
+    room6.addEnemy(troll);
+
     // Room 1 <-> Room 2
     room1.setEast(room2);
     room2.setWest(room1);
